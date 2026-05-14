@@ -11,15 +11,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --rose:     #f4c6c6;
-      --rose-mid: #e8a5a5;
-      --rose-dark:#c97b7b;
-      --nude:     #f9f0ec;
-      --lila:     #ddd0e8;
-      --lila-dark:#b39ec4;
-      --dark:     #3a2a2a;
-      --mid:      #7a5c5c;
-      --white:    #fffcfb;
+      --rose:       #f4c6c6;
+      --rose-mid:   #e8a5a5;
+      --rose-dark:  #c97b7b;
+      --nude:       #f9f0ec;
+      --lila:       #ddd0e8;
+      --lila-dark:  #b39ec4;
+      --dark:       #3a2a2a;
+      --mid:        #7a5c5c;
+      --white:      #fffcfb;
+      --logo-outer: #f7c5c5;
+      --logo-inner: #e08080;
     }
 
     html { scroll-behavior: smooth; }
@@ -81,7 +83,7 @@
       flex-shrink: 0;
       width: 280px; height: 280px;
       border-radius: 50%;
-      background: #f7c5c5;
+      background: var(--logo-outer);
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 8px 48px rgba(201,123,123,0.25);
       animation: logo-float 4s ease-in-out infinite;
@@ -89,7 +91,7 @@
     .hero-logo-inner {
       width: 200px; height: 200px;
       border-radius: 50%;
-      background: #e08080;
+      background: var(--logo-inner);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: 0.2rem;
@@ -383,6 +385,23 @@
     .publish-status { margin-top: 1rem; font-size: 0.85rem; color: var(--mid); min-height: 1.2em; text-align: center; }
     .publish-status.ok { color: #27ae60; }
     .publish-status.err { color: #c0392b; }
+
+    /* ── COLOR PANEL ── */
+    #color-panel {
+      display: none; position: fixed; top: 44px; right: 0; z-index: 9998;
+      background: var(--white); width: 260px;
+      border-left: 1px solid var(--rose-mid);
+      box-shadow: -4px 0 24px rgba(58,42,42,0.12);
+      padding: 1.4rem 1.2rem;
+      overflow-y: auto; max-height: calc(100vh - 44px);
+    }
+    #color-panel.open { display: block; }
+    .cp-title { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 1rem; color: var(--dark); }
+    .cp-group { margin-bottom: 1rem; }
+    .cp-group label { display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; color: var(--mid); margin-bottom: 0.3rem; }
+    .cp-group input[type=color] { width: 36px; height: 24px; border: none; border-radius: 4px; cursor: pointer; padding: 0; background: none; }
+    .cp-reset { width: 100%; margin-top: 0.5rem; padding: 0.55rem; border-radius: 99px; border: 1.5px solid var(--rose-mid); background: none; color: var(--mid); font-size: 0.78rem; cursor: pointer; }
+    .cp-reset:hover { background: var(--rose); }
   </style>
 </head>
 <body>
@@ -412,8 +431,8 @@
     </div>
     <div class="hero-logo">
       <div class="hero-logo-inner">
-        <span class="hero-logo-title">Cero<br/>Chiquero</span>
-        <span class="hero-logo-sub">Organización &amp; Limpieza</span>
+        <span class="hero-logo-title" data-editable="logo-title">Cero<br/>Chiquero</span>
+        <span class="hero-logo-sub" data-editable="logo-sub">Organización &amp; Limpieza</span>
       </div>
     </div>
   </div>
@@ -421,7 +440,7 @@
 
 <section id="nosotros">
   <div class="about-img-wrap">
-    <div class="about-card">🏡</div>
+    <div class="about-card" data-editable="about-icon">🏡</div>
     <div class="about-badge">
       <strong data-editable="badge-num">+200</strong>
       <span data-editable="badge-text">mudanzas exitosas</span>
@@ -440,12 +459,12 @@
   <p class="section-label" data-editable="sv-label">¿Qué hacemos?</p>
   <h2 class="section-title" data-editable="sv-title">Nuestros <em>servicios</em></h2>
   <div class="services-grid">
-    <div class="service-card"><span class="service-icon">📦</span><h3 data-editable="sv1-title">Mudanza Residencial</h3><p data-editable="sv1-desc">Empaque, carga, transporte y desempaque de tu hogar completo con cuidado y profesionalismo.</p></div>
-    <div class="service-card"><span class="service-icon">🏢</span><h3 data-editable="sv2-title">Mudanza Corporativa</h3><p data-editable="sv2-desc">Traslado de oficinas y espacios de trabajo con mínima interrupción a tus operaciones.</p></div>
-    <div class="service-card"><span class="service-icon">✨</span><h3 data-editable="sv3-title">Organización de Espacios</h3><p data-editable="sv3-desc">Diseñamos y organizamos cada rincón: closets, cocinas, oficinas en casa y más.</p></div>
-    <div class="service-card"><span class="service-icon">🎁</span><h3 data-editable="sv4-title">Empaque Profesional</h3><p data-editable="sv4-desc">Empaquetamos tus pertenencias con materiales de calidad para que lleguen perfectas.</p></div>
-    <div class="service-card"><span class="service-icon">🛋️</span><h3 data-editable="sv5-title">Montaje de Muebles</h3><p data-editable="sv5-desc">Armamos y acomodamos tus muebles en el nuevo espacio para que llegues y disfrutes.</p></div>
-    <div class="service-card"><span class="service-icon">🗂️</span><h3 data-editable="sv6-title">Consultoría de Orden</h3><p data-editable="sv6-desc">Sesiones personalizadas para crear sistemas de organización duraderos en tu hogar.</p></div>
+    <div class="service-card"><span class="service-icon" data-editable="sv1-icon">📦</span><h3 data-editable="sv1-title">Mudanza Residencial</h3><p data-editable="sv1-desc">Empaque, carga, transporte y desempaque de tu hogar completo con cuidado y profesionalismo.</p></div>
+    <div class="service-card"><span class="service-icon" data-editable="sv2-icon">🏢</span><h3 data-editable="sv2-title">Mudanza Corporativa</h3><p data-editable="sv2-desc">Traslado de oficinas y espacios de trabajo con mínima interrupción a tus operaciones.</p></div>
+    <div class="service-card"><span class="service-icon" data-editable="sv3-icon">✨</span><h3 data-editable="sv3-title">Organización de Espacios</h3><p data-editable="sv3-desc">Diseñamos y organizamos cada rincón: closets, cocinas, oficinas en casa y más.</p></div>
+    <div class="service-card"><span class="service-icon" data-editable="sv4-icon">🎁</span><h3 data-editable="sv4-title">Empaque Profesional</h3><p data-editable="sv4-desc">Empaquetamos tus pertenencias con materiales de calidad para que lleguen perfectas.</p></div>
+    <div class="service-card"><span class="service-icon" data-editable="sv5-icon">🛋️</span><h3 data-editable="sv5-title">Montaje de Muebles</h3><p data-editable="sv5-desc">Armamos y acomodamos tus muebles en el nuevo espacio para que llegues y disfrutes.</p></div>
+    <div class="service-card"><span class="service-icon" data-editable="sv6-icon">🗂️</span><h3 data-editable="sv6-title">Consultoría de Orden</h3><p data-editable="sv6-desc">Sesiones personalizadas para crear sistemas de organización duraderos en tu hogar.</p></div>
   </div>
 </section>
 
@@ -554,8 +573,28 @@
   <span class="toolbar-badge"><span class="toolbar-dot"></span> Modo edición activo</span>
   <span class="toolbar-hint">Haz clic en cualquier texto para editarlo</span>
   <span class="toolbar-status" id="toolbar-status"></span>
+  <button class="toolbar-btn toolbar-btn-publish" onclick="toggleColorPanel()">🎨 Colores</button>
   <button class="toolbar-btn toolbar-btn-publish" onclick="openPublish()">🐙 Publicar en GitHub</button>
   <button class="toolbar-btn toolbar-btn-exit" onclick="exitAdmin()">✕ Salir</button>
+</div>
+
+<!-- Color panel -->
+<div id="color-panel">
+  <p class="cp-title">🎨 Colores de la página</p>
+
+  <div class="cp-group"><label>Rosa claro <input type="color" id="cp-rose" oninput="applyColor('--rose',this.value)"></label></div>
+  <div class="cp-group"><label>Rosa medio <input type="color" id="cp-rose-mid" oninput="applyColor('--rose-mid',this.value)"></label></div>
+  <div class="cp-group"><label>Rosa botones <input type="color" id="cp-rose-dark" oninput="applyColor('--rose-dark',this.value)"></label></div>
+  <div class="cp-group"><label>Fondo crema <input type="color" id="cp-nude" oninput="applyColor('--nude',this.value)"></label></div>
+  <div class="cp-group"><label>Lila claro <input type="color" id="cp-lila" oninput="applyColor('--lila',this.value)"></label></div>
+  <div class="cp-group"><label>Lila oscuro <input type="color" id="cp-lila-dark" oninput="applyColor('--lila-dark',this.value)"></label></div>
+  <div class="cp-group"><label>Texto oscuro <input type="color" id="cp-dark" oninput="applyColor('--dark',this.value)"></label></div>
+  <div class="cp-group"><label>Texto medio <input type="color" id="cp-mid" oninput="applyColor('--mid',this.value)"></label></div>
+  <div class="cp-group"><label>Fondo blanco <input type="color" id="cp-white" oninput="applyColor('--white',this.value)"></label></div>
+  <div class="cp-group"><label>Logo exterior <input type="color" id="cp-logo-outer" oninput="applyColor('--logo-outer',this.value)"></label></div>
+  <div class="cp-group"><label>Logo interior <input type="color" id="cp-logo-inner" oninput="applyColor('--logo-inner',this.value)"></label></div>
+
+  <button class="cp-reset" onclick="resetColors()">↩ Restablecer colores originales</button>
 </div>
 
 <!-- ══════════════ SCRIPTS ══════════════ -->
@@ -564,6 +603,89 @@
   // ⚙️  CONFIGURACIÓN — cambia solo esta línea
   // ─────────────────────────────────────────
   const ADMIN_PASSWORD = "cerochiquero2025";
+
+  const DEFAULT_COLORS = {
+    '--rose':       '#f4c6c6',
+    '--rose-mid':   '#e8a5a5',
+    '--rose-dark':  '#c97b7b',
+    '--nude':       '#f9f0ec',
+    '--lila':       '#ddd0e8',
+    '--lila-dark':  '#b39ec4',
+    '--dark':       '#3a2a2a',
+    '--mid':        '#7a5c5c',
+    '--white':      '#fffcfb',
+    '--logo-outer': '#f7c5c5',
+    '--logo-inner': '#e08080',
+  };
+
+  const COLOR_PICKER_MAP = {
+    '--rose':       'cp-rose',
+    '--rose-mid':   'cp-rose-mid',
+    '--rose-dark':  'cp-rose-dark',
+    '--nude':       'cp-nude',
+    '--lila':       'cp-lila',
+    '--lila-dark':  'cp-lila-dark',
+    '--dark':       'cp-dark',
+    '--mid':        'cp-mid',
+    '--white':      'cp-white',
+    '--logo-outer': 'cp-logo-outer',
+    '--logo-inner': 'cp-logo-inner',
+  };
+
+  const COLOR_KEY = 'cerochiquero_colors';
+
+  function loadSavedColors() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(COLOR_KEY) || '{}');
+      Object.entries(saved).forEach(([prop, val]) => {
+        document.documentElement.style.setProperty(prop, val);
+      });
+    } catch(e) {}
+  }
+
+  function applyColor(prop, val) {
+    document.documentElement.style.setProperty(prop, val);
+    try {
+      const saved = JSON.parse(localStorage.getItem(COLOR_KEY) || '{}');
+      saved[prop] = val;
+      localStorage.setItem(COLOR_KEY, JSON.stringify(saved));
+      showToolbarStatus('Color guardado ✓');
+    } catch(e) {}
+  }
+
+  function syncColorPickers() {
+    const style = getComputedStyle(document.documentElement);
+    Object.entries(COLOR_PICKER_MAP).forEach(([prop, pickerId]) => {
+      const picker = document.getElementById(pickerId);
+      if (!picker) return;
+      const val = style.getPropertyValue(prop).trim();
+      picker.value = rgbToHex(val) || DEFAULT_COLORS[prop];
+    });
+  }
+
+  function rgbToHex(color) {
+    if (color.startsWith('#')) return color;
+    const m = color.match(/\d+/g);
+    if (!m || m.length < 3) return null;
+    return '#' + m.slice(0,3).map(n => parseInt(n).toString(16).padStart(2,'0')).join('');
+  }
+
+  function resetColors() {
+    localStorage.removeItem(COLOR_KEY);
+    Object.entries(DEFAULT_COLORS).forEach(([prop, val]) => {
+      document.documentElement.style.setProperty(prop, val);
+    });
+    syncColorPickers();
+    showToolbarStatus('Colores restablecidos ✓');
+  }
+
+  function toggleColorPanel() {
+    const panel = document.getElementById('color-panel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) syncColorPickers();
+  }
+
+  loadSavedColors();
 
   // ─────────────────────────────────────────
   // Scroll animations
@@ -681,6 +803,7 @@
   function exitAdmin() {
     document.body.classList.remove('admin-mode');
     document.getElementById('admin-toolbar').classList.remove('active');
+    document.getElementById('color-panel').classList.remove('open');
 
     document.querySelectorAll('[data-editable]').forEach(el => {
       el.contentEditable = 'false';
@@ -809,13 +932,28 @@
     clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
 
     // Remove admin UI elements
-    ['admin-trigger','login-modal','gh-modal','admin-toolbar'].forEach(id => {
+    ['admin-trigger','login-modal','gh-modal','admin-toolbar','color-panel'].forEach(id => {
       const el = clone.getElementById(id);
       if (el) el.remove();
     });
 
     // Remove admin-mode class from body
     clone.querySelector('body').classList.remove('admin-mode');
+
+    // Embed saved colors into :root so they persist on the live site
+    try {
+      const saved = JSON.parse(localStorage.getItem(COLOR_KEY) || '{}');
+      if (Object.keys(saved).length > 0) {
+        const vars = Object.entries(saved).map(([k,v]) => `      ${k}: ${v};`).join('\n');
+        const styleTag = clone.querySelector('style');
+        if (styleTag) {
+          styleTag.textContent = styleTag.textContent.replace(
+            ':root {',
+            `:root {\n${vars}`
+          );
+        }
+      }
+    } catch(e) {}
 
     return '<!DOCTYPE html>\n' + clone.outerHTML;
   }
